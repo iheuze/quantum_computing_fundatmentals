@@ -1,0 +1,20 @@
+from qiskit import *
+from qiskit.tools.visualization import plot_histogram
+from math import pi
+%matplotlib inline
+
+
+circuit = QuantumCircuit(2) 
+circuit.x(1)
+circuit.h(0)
+circuit.cnot(0,1)
+
+circuit.barrier()
+circuit.draw(output = 'mpl') 
+
+circuit.measure_all()
+simulator = Aer.get_backend('qasm_simulator')
+result = execute(circuit, backend = simulator, shots = 1000).result()
+plot_histogram(result.get_counts())
+
+
